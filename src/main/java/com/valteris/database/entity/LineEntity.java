@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,8 +18,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "row")
-public class RowEntity {
+@Table(name = "line")
+public class LineEntity {
 
     @Id
     @NonNull
@@ -27,8 +28,9 @@ public class RowEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "tbl_id")
     private TableEntity tableEntity;
 
-    @OneToMany(mappedBy = "rowEntity")
+    @OneToMany(mappedBy = "lineEntity")
     private List<CellEntity> cellEntities;
 }

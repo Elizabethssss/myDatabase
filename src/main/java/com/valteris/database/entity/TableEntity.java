@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,11 +32,12 @@ public class TableEntity {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "db_name")
     private DatabaseEntity databaseEntity;
 
     @OneToMany(mappedBy = "tableEntity")
     private List<ColumnEntity> columnEntities;
 
     @OneToMany(mappedBy = "tableEntity")
-    private List<RowEntity> rowEntities;
+    private List<LineEntity> lineEntities;
 }

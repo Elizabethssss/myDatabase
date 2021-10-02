@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,9 +40,10 @@ public class ColumnEntity {
 
     @NonNull
     @Column(name = "max_length")
-    private Long maxLength;
+    private Integer maxLength;
 
     @ManyToOne
+    @JoinColumn(name = "tbl_id")
     private TableEntity tableEntity;
 
     @OneToMany(mappedBy = "columnEntity")

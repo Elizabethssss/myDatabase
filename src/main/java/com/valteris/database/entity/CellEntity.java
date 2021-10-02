@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,8 +30,10 @@ public class CellEntity {
     private String value;
 
     @ManyToOne
-    private RowEntity rowEntity;
+    @JoinColumn(name = "line_id")
+    private LineEntity lineEntity;
 
     @ManyToOne
+    @JoinColumn(name = "clmn_id")
     private ColumnEntity columnEntity;
 }
