@@ -1,0 +1,11 @@
+.column-name {
+    width: 250px;
+    display: inline-block;
+}
+
+.column-name-container {
+    margin: 1em 0;
+}
+.column-type-container {
+    display: inline-block;
+}

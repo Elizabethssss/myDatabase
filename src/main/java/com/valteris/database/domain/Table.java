@@ -1,24 +1,21 @@
 package com.valteris.database.domain;
 
-import com.valteris.database.entity.ColumnEntity;
-import com.valteris.database.entity.DatabaseEntity;
-import com.valteris.database.entity.LineEntity;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 public class Table {
 
-    private Long id;
-    private String name;
-    private DatabaseEntity databaseEntity;
-    private List<ColumnEntity> columnEntities;
-    private List<LineEntity> lineEntities;
+    private Long incrementor = 0L;
+    private String tableName;
+    private String dbName;
+    private List<Column> columns;
+    private List<Line> lines = new ArrayList<>();
+
 }

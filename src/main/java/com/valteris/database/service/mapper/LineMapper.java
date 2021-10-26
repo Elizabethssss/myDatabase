@@ -2,7 +2,9 @@ package com.valteris.database.service.mapper;
 
 import com.valteris.database.domain.Line;
 import com.valteris.database.entity.LineEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LineMapper implements Mapper<Line, LineEntity> {
     @Override
     public Line mapEntityToDomain(LineEntity entity) {

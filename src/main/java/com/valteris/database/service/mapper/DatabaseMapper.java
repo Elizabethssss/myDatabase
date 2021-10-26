@@ -2,7 +2,9 @@ package com.valteris.database.service.mapper;
 
 import com.valteris.database.domain.Database;
 import com.valteris.database.entity.DatabaseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DatabaseMapper implements Mapper<Database, DatabaseEntity> {
     @Override
     public Database mapEntityToDomain(DatabaseEntity entity) {
