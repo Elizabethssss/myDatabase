@@ -2,18 +2,22 @@ package com.valteris.database.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.valteris.database.domain.Cell;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
-public class ColumnJson {
+public class LineJson {
 
-    @SerializedName("name")
+    @SerializedName("id")
     @Expose
-    public String name;
-    @SerializedName("type")
+    private Long id;
+
+    @SerializedName("cells")
     @Expose
-    public String type;
+    private List<Cell> cells;
 }

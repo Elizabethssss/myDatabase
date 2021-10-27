@@ -4,19 +4,19 @@ import com.valteris.database.domain.Database;
 import com.valteris.database.domain.Table;
 
 import java.util.List;
-import java.util.Optional;
 
+//todo separate into 2 interfaces
 public interface DatabaseService {
 
     List<String> findAllDatabases();
 
-    Optional<Database> findDatabaseByName(String name);
+    Database findDatabaseByName(String name);
 
     void createDatabase(String name);
 
     void createTable(Table table);
 
-    Optional<Table> findTableByName(String dbName, String tableName);
+    Table findTableByName(String dbName, String tableName);
 
     void addNewLine(String dbName, String tableName);
 

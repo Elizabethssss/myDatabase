@@ -4,6 +4,7 @@ import com.valteris.database.domain.Column;
 import com.valteris.database.domain.Table;
 import com.valteris.database.dto.ColumnJson;
 import com.valteris.database.dto.CreateTableJson;
+import com.valteris.database.dto.TableJson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,14 @@ public class TableConvertor {
                 .addMapping(Table::getTableName, CreateTableJson::setTableName)
                 .addMapping(Table::getDbName, CreateTableJson::setDbName)
                 .addMapping(t -> modelMapper.map(t.getColumns(), ColumnJson.class), CreateTableJson::setColumns)
+                .map(table);
+    }
+
+    public TableJson convertToJsonDTO(Table table) {
+        return modelMapper.typeMap(Table.class, TableJson.class)
+                .addMapping(Table::getTableName, TableJson::setTableName)
+                .addMapping(Table::getDbName, TableJson::setDbName)
+                .addMapping(t -> modelMapper.map(t.getColumns(), ColumnJson.class), TableJson::setColumns)
                 .map(table);
     }
 

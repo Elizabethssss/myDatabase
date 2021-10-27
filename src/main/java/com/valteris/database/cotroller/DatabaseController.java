@@ -1,14 +1,12 @@
 package com.valteris.database.cotroller;
 
 import com.google.gson.Gson;
-import com.valteris.database.domain.Database;
-import com.valteris.database.domain.Line;
 import com.valteris.database.domain.Table;
 import com.valteris.database.dto.CreateTableJson;
+import com.valteris.database.dto.TableJson;
 import com.valteris.database.service.DatabaseService;
 import com.valteris.database.util.TableConvertor;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class DatabaseController {
 
     private final DatabaseService databaseService;
@@ -45,7 +43,7 @@ public class DatabaseController {
 
     @GetMapping("/database/{name}")
     public String getDatabasePage(@PathVariable String name, Model model) {
-        model.addAttribute("database", databaseService.findDatabaseByName(name).orElse(null));
+        model.addAttribute("database", databaseService.findDatabaseByName(name));
         return "db";
     }
 
@@ -77,9 +75,17 @@ public class DatabaseController {
 
     @GetMapping("/table/{name}")
     public String getTablePage(@PathVariable(name = "name") String tableName, @RequestParam String dbName, Model model) {
-        final Table table = databaseService.findTableByName(dbName, tableName).orElse(null);
+        final Table table = databaseService.findTableByName(dbName, tableName);
         model.addAttribute("table", table);
         return "table";
+    }
+
+    @GetMapping("/table/meta/{name}")
+    @ResponseBody
+    public TableJson getTable(@PathVariable(name = "name") String tableName, @RequestParam String dbName) {
+        final Table table = databaseService.findTableByName(dbName, tableName);
+        TableJson tableJson = tableConvertor.convertToJsonDTO(table);
+        return tableJson;
     }
 
     @GetMapping("/line")
@@ -111,7 +117,7 @@ public class DatabaseController {
 
     @GetMapping(value = "/line/delete/{id}")
     public String deleteLine(@PathVariable Long id, @RequestParam String dbName,
-                                      @RequestParam String tableName, RedirectAttributes attributes) {
+                             @RequestParam String tableName, RedirectAttributes attributes) {
         databaseService.deleteLine(id, dbName, tableName);
         attributes.addAttribute("dbName", dbName);
         return "redirect:/table/" + tableName;

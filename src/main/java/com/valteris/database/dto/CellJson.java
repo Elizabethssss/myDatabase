@@ -2,18 +2,19 @@ package com.valteris.database.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.valteris.database.domain.Type;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ColumnJson {
+public class CellJson {
 
-    @SerializedName("name")
+    @SerializedName("value")
     @Expose
-    public String name;
+    private String value = "";
     @SerializedName("type")
     @Expose
-    public String type;
+    private Type type;
 }

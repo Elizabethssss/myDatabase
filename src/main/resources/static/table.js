@@ -7,6 +7,12 @@ const json = {
     columns: []
 }
 
+window.addEventListener('load', function () {
+    $.get("/table/meta/" + tableName + "?dbName=" + dbName, function (data) {
+        console.log(data)
+    })
+});
+
 $(document).on('click', '#add-column', function () {
     const name = $("#new-column-name").val().trim()
     if (!name) {
@@ -60,4 +66,19 @@ $(document).on('click', '.delete-column', function () {
 
 $(document).on('click', '#undo', function () {
     document.location.reload()
+})
+
+$(document).on('click', '#save', function () {
+    const table = {
+        tableName,
+        columns: []
+    }
+
+    const json = {
+        dbName,
+        table
+    }
+
+console.log(json)
+
 })

@@ -1,18 +1,24 @@
 package com.valteris.database.domain;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Singular;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@Builder
 public class Line {
 
     private Long id;
     private Table table;
-    private List<Cell> cells = new ArrayList<>();
+
+    @Singular
+    private List<Cell> cells;
+
+    public void addCell(Cell cell) {
+        this.cells.add(cell);
+    }
 }

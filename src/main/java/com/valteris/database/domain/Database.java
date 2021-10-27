@@ -1,18 +1,19 @@
 package com.valteris.database.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 public class Database {
 
     private Long id;
     private String name;
-    private List<Table> tables = new ArrayList<>();
+    private List<Table> tables;
+
+    public void registerTable(Table table) {
+        this.tables.add(table);
+    }
 }
