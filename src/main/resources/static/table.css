@@ -9,3 +9,6 @@
 .column-type-container {
     display: inline-block;
 }
+.cellError {
+    border-color: red;
+}

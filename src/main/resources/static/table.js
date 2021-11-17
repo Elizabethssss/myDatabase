@@ -5,11 +5,13 @@ const json = {
     dbName,
     tableName,
     columns: []
-}
+};
+let table = {}
 
 window.addEventListener('load', function () {
     $.get("/table/meta/" + tableName + "?dbName=" + dbName, function (data) {
-        console.log(data)
+        table = data
+        console.log(table)
     })
 });
 
@@ -69,16 +71,49 @@ $(document).on('click', '#undo', function () {
 })
 
 $(document).on('click', '#save', function () {
-    const table = {
-        tableName,
-        columns: []
-    }
 
-    const json = {
-        dbName,
-        table
-    }
+    $('table.table tbody tr').each((i, tr) => {
+        $(tr).find('td div').each((j, div) => {
+            let cell = table.lines[i].cells[j];
 
-console.log(json)
+            if (cell.type === 'TIME_INTERVAL') {
+                cell.value = $(div).find('input')[0].value + ' - ' + $(div).find('input')[1].value
+            } else {
+                cell.type = $(div).find('input').attr("cellType")
+                cell.value = $(div).find('input').val()
+            }
+            cell.columnName = $('table.table thead th').find('span.col-name').get(j).innerText;
+            cell.lineId = i + 1;
+        })
+    })
+
+    console.log(table)
+
+    $.ajax({
+        url: '/table/save',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(table),
+        success: function (responseTable) {
+            let cells = responseTable.lines.map((l) => {
+                return l.cells
+            })
+            cells = [].concat.apply([], cells)
+            let hasError = cells.map((c) => {
+                return c.hasError;
+            })
+                .find((e) => e === true)
+            console.log("hasError: ", hasError)
+            if (hasError) {
+                console.log(responseTable)
+                document.location = "/table/validation/session";
+            } else {
+                document.location = "/table/" + responseTable.tableName + "?dbName=" + responseTable.dbName;
+            }
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
 
 })

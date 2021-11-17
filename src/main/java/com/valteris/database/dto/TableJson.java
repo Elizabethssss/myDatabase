@@ -2,15 +2,17 @@ package com.valteris.database.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.valteris.database.domain.Line;
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class TableJson {
 
@@ -25,5 +27,5 @@ public class TableJson {
     private List<ColumnJson> columns = new ArrayList<>();
     @SerializedName("lines")
     @Expose
-    private List<Line> lines = new ArrayList<>();
+    private List<LineJson> lines = new ArrayList<>();
 }

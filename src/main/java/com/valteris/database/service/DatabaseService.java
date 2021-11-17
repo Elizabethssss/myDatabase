@@ -8,7 +8,7 @@ import java.util.List;
 //todo separate into 2 interfaces
 public interface DatabaseService {
 
-    List<String> findAllDatabases();
+    List<String> findAllDatabaseNames();
 
     Database findDatabaseByName(String name);
 
@@ -25,4 +25,8 @@ public interface DatabaseService {
     void deleteColumn(Table table);
 
     void deleteLine(Long id, String dbName, String tableName);
+
+    void saveTable(Table table);
+
+    Table innerJoin(String dbName, Table table1, Table table2);
 }

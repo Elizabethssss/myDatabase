@@ -1,17 +1,16 @@
 package com.valteris.database.domain;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class Cell {
 
     private Long id;
-    private String value = "";
+    private String value;
     private Type type;
-    private Line line;
-    private Column column;
+    private boolean hasError;
+    private String columnName;
+    private Long lineId;
 }

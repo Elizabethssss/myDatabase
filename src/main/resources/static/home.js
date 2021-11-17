@@ -8,7 +8,6 @@ $(document).ready(function () {
 function fillTable(dbs) {
     let dbItems = '';
     (dbs || []).forEach(db => {
-        db = db.slice(0, -5)
         dbItems += getBicycleTemplate(db)
     })
 

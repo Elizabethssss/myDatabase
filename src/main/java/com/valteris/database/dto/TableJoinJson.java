@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ColumnJson {
+public class TableJoinJson {
 
-    @SerializedName("name")
+    @SerializedName("tableName")
     @Expose
-    public String name;
-    @SerializedName("type")
+    public String tableName;
+    @SerializedName("column")
     @Expose
-    public String type;
+    public ColumnJson column;
 }

@@ -7,12 +7,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ColumnJson {
+public class InnerJoinJson {
 
-    @SerializedName("name")
+    @SerializedName("dbName")
     @Expose
-    public String name;
-    @SerializedName("type")
+    private String dbName;
+
+    @SerializedName("table1")
     @Expose
-    public String type;
+    private TableJoinJson table1;
+
+    @SerializedName("table2")
+    @Expose
+    private TableJoinJson table2;
 }

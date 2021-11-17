@@ -10,22 +10,32 @@
 </head>
 <body>
 <div class="container">
-<!--    <table class="table">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th th:each="column : ${table.columns}">-->
-<!--                <span th:text="${column.name}"></span>-->
-<!--            </th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="line : ${table.lines}">-->
-<!--            <td th:each="cell : ${line.cells}">-->
-<!--                <p th:value="${cell.value}"></p>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/home">
+            <h1>Database App</h1>
+        </a>
+    </nav>
+    <div th:if="${table.columns.empty}" class="alert alert-danger" role="alert">
+        Can't join tables!
+    </div>
+
+    <table class="table" th:unless="${table.columns.empty}">
+        <thead>
+        <tr>
+            <th th:each="column : ${table.columns}">
+                <span class="col-name" th:text="${column.name}"></span>
+                <span style="color: grey" th:text="'(' + ${column.type} + ')'"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="line : ${table.lines}">
+            <td th:each="cell : ${line.cells}">
+                <p th:text="${cell.value}"></p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

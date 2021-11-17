@@ -2,44 +2,62 @@ package com.valteris.database.domain;
 
 import com.valteris.database.exception.ColumnNotFoundException;
 import com.valteris.database.exception.LineNotFoundException;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Singular;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 public class Table {
 
-    private Long incrementor = 1L;
+    private Long id;
+    private Long incrementor;
     private String tableName;
     private String dbName;
+
+    @Singular
     private List<Column> columns;
-    private List<Line> lines = new ArrayList<>();
+
+    @Singular
+    private List<Line> lines;
 
     //todo check list size
-    public Column getUpdatedColumn() {
+    public Column getFirstColumn() {
         return this.columns.get(0);
     }
 
-    public void createColumn(Column column) {
+    public void addColumnToList(Column column) {
         this.columns.add(column);
     }
 
-    public Column getDeleteColumn(String columnName) {
+    public Column getColumnByName(String columnName) {
         return this.columns.stream()
                 .filter(c -> c.getName().equals(columnName))
                 .findFirst()
                 .orElseThrow(ColumnNotFoundException::new);
     }
 
-    public Line getDeleteLine(Long id) {
+    public Line getLineById(Long id) {
         return this.lines.stream()
                 .filter(l -> l.getId().equals(id))
                 .findFirst()
                 .orElseThrow(LineNotFoundException::new);
+    }
+
+    public List<Cell> getAllCells() {
+        return lines.stream()
+                .flatMap(line -> line.getCells().stream())
+                .collect(Collectors.toList());
+    }
+
+
+    public List<Cell> getColumnCells(String columnName) {
+        return lines.stream()
+                .flatMap(line -> line.getCells().stream())
+                .filter(c -> c.getColumnName().equals(columnName))
+                .collect(Collectors.toList());
     }
 }

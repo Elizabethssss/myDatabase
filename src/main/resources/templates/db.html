@@ -10,9 +10,16 @@
 </head>
 <body>
 <div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/home">
+            <h1>Database App</h1>
+        </a>
+    </nav>
+
     <h1 id="db-info" th:text="'Database ' + ${database.name}"></span></h1>
 
     <div style="float: right">
+        <a class="btn btn-primary" th:href="'/table/join/inner?dbName=' + ${database.name}">Inner join of tables</a>
         <a class="btn btn-primary" th:href="'/table?dbName=' + ${database.name}">Create new table</a>
     </div>
 
