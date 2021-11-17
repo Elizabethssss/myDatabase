@@ -1,5 +1,6 @@
 package com.valteris.database.entity;
 
+import com.valteris.database.domain.Type;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class ColumnEntity {
     @NonNull
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private TypeEntity typeEntity;
+    private Type type;
 
     @NonNull
     @Column(name = "max_length")
@@ -44,6 +45,7 @@ public class ColumnEntity {
 
     @ManyToOne
     @JoinColumn(name = "tbl_id")
+//    @JoinTable(name = "tbl")
     private TableEntity tableEntity;
 
     @OneToMany(mappedBy = "columnEntity")

@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +32,20 @@ public class DatabaseEntity {
     @NonNull
     private String name;
 
-    @OneToMany(mappedBy = "databaseEntity")
-    private List<TableEntity> tableEntityList;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "databaseEntity",
+            cascade = CascadeType.ALL
+    )
+    private List<TableEntity> tableEntityList = new ArrayList<>();
+
+    public void addTableEntity(TableEntity tableEntity) {
+        tableEntityList.add(tableEntity);
+        tableEntity.setDatabaseEntity(this);
+    }
+
+    public void removeTableEntity(TableEntity tableEntity) {
+        tableEntityList.remove(tableEntity);
+        tableEntity.setDatabaseEntity(null);
+    }
 }
