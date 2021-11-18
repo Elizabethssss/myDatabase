@@ -32,13 +32,17 @@ public class CellConvertor {
     }
 
     public Cell convertEntityToDomain(CellEntity cellEntity) {
-        return modelMapper.typeMap(CellEntity.class, Cell.CellBuilder.class)
+        Cell.CellBuilder cellBuilder = modelMapper.typeMap(CellEntity.class, Cell.CellBuilder.class)
                 .addMapping(CellEntity::getId, Cell.CellBuilder::id)
                 .addMapping(CellEntity::getValue, Cell.CellBuilder::value)
-                .addMapping(CellEntity::getLineEntity, Cell.CellBuilder::lineId)
-                .addMapping(CellEntity::getColumnEntity, Cell.CellBuilder::columnName)
-                .map(cellEntity)
-                .build();
+                .addMapping(CellEntity::getType, Cell.CellBuilder::type)
+                .map(cellEntity);
+
+        cellBuilder
+                .lineId(cellEntity.getLineEntity().getId())
+                .columnName(cellEntity.getColumnEntity().getName());
+
+        return cellBuilder.build();
     }
 
     public CellEntity convertToEntity(Cell cell) {

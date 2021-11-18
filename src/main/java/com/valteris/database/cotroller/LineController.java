@@ -1,6 +1,5 @@
 package com.valteris.database.cotroller;
 
-import com.valteris.database.convector.TableConvertor;
 import com.valteris.database.service.DatabaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LineController {
 
     private final DatabaseService databaseService;
-    private final TableConvertor tableConvertor;
 
     @GetMapping("/line")
     public String addNewLine(@RequestParam String dbName, @RequestParam String tableName, RedirectAttributes attributes) {

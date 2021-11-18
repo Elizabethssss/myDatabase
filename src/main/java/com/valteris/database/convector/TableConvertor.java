@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
 @Component
 public class TableConvertor {
 
@@ -71,7 +73,9 @@ public class TableConvertor {
                 .map(tableEntity)
                 .build();
 
-        table.setDbName(tableEntity.getDatabaseEntity().getName());
+        if(nonNull(tableEntity.getDatabaseEntity())) {
+            table.setDbName(tableEntity.getDatabaseEntity().getName());
+        }
 
         List<Column> columnList = tableEntity.getColumnEntities().stream()
                 .map(columnConvertor::convertEntityToDomain)

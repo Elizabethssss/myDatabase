@@ -1,5 +1,6 @@
 package com.valteris.database.entity;
 
+import com.valteris.database.domain.Cell;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -44,6 +46,20 @@ public class TableEntity {
     @OneToMany(mappedBy = "tableEntity",
             cascade = CascadeType.ALL)
     private List<LineEntity> lineEntities = new ArrayList<>();
+
+    public List<CellEntity> getAllCellEntities() {
+        return lineEntities.stream()
+                .flatMap(line -> line.getCellEntities().stream())
+                .collect(Collectors.toList());
+    }
+
+    public void setCellEntityValues(List<String> values) {
+        List<CellEntity> allCellEntities = getAllCellEntities();
+
+        for (int i = 0; i < values.size(); i++) {
+            allCellEntities.get(i).setValue(values.get(i));
+        }
+    }
 
     public void addColumnEntity(ColumnEntity columnEntity) {
         columnEntities.add(columnEntity);
